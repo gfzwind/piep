@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petweb.dao.DealDao">
+    <select id="getAllBreed" resultType="java.lang.String">
+        select distinct pbreed from pet where pid in (
+            select dpet from deal where dstate = 1
+        )
+    </select>
+    <select id="getDealByCondition" resultType="java.util.HashMap" parameterType="java.util.Map">
+        select dpublisher, uname, pid, pname, phealth, pbreed, pdetail, pphoto, did, ddetail, dprice, uphone, user.uid as uid
+        from deal, pet, user
+        where dpet = pet.pid
+        and dpublisher = user.uid
+        <if test="startPrice != null and endPrice != null">
+            and dprice between #{startPrice} and #{endPrice}
+        </if>
+        <if test="breed != null">
+            and dpet in (
+                select pid from pet where pbreed = #{breed}
+            )
+        </if>
+        order by did desc
+    </select>
+    <select id="getAllDeal" resultType="java.util.HashMap">
+        select dpublisher, uname, pid, pname, phealth, pbreed, pdetail, pphoto, did, ddetail, dprice, uphone
+        from deal, pet, user
+        where dpet = pet.pid
+        and dpublisher = user.uid
+        order by did desc
+    </select>
+    <select id="getAllDealByUid" resultType="java.util.HashMap">
+        select dpublisher, uname, pid, pname, phealth, pbreed, pdetail, pphoto, did, ddetail, dprice, uphone
+        from deal, pet, user
+        where dpet = pet.pid
+        and dpublisher = user.uid
+        and user.uid = #{uid}
+        order by did desc
+    </select>
+    <insert id="insertDeal" parameterType="com.petweb.pojo.Deal" useGeneratedKeys="true" keyProperty="did">
+        insert ignore into deal (dpublisher, dpet, dstate, dprice) values (#{dpublisher}, #{dpet}, 1, #{dprice})
+    </insert>
+    <delete id="deleteDeal" parameterType="java.lang.Integer">
+        delete from deal
+        where did = #{did}
+    </delete>
+</mapper>

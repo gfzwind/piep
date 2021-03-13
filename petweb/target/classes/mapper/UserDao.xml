@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petweb.dao.UserDao">
+
+    <select id="getUserByIdPwd" resultType="com.petweb.pojo.User" parameterType="map">
+        select * from user where uid=#{username} and upassword=#{password}
+    </select>
+    <insert id="insertIdNamePwd" parameterType="com.petweb.pojo.User" useGeneratedKeys="true" keyProperty="uid">
+        insert ignore into user (uid, uname, upassword) values ( #{id}, #{name}, #{pwd});
+    </insert>
+    <update id="updateName" parameterType="java.lang.String">
+      update user set
+        uname = #{uname}
+      where uid = #{uid}
+    </update>
+    <update id="updatePhone">
+      update user set
+        uphone = #{uphone}
+      where uid = #{uid}
+    </update>
+    <update id="updatePhoto">
+      update user set
+        uphoto = #{uphoto}
+      where uid = #{uid}
+    </update>
+    <update id="updateSex">
+      update user set
+        usex = #{usex}
+      where uid = #{uid}
+    </update>
+    <select id="getAllPerson" resultType="java.util.HashMap" parameterType="java.lang.String">
+        select user.uid as otherId,
+            user.uname as otherName,
+            user.uphoto as otherPhoto
+        from user
+        where uname like concat(concat('%',#{value}),'%')
+    </select>
+</mapper>

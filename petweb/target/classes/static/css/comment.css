@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS Document */
+@font-face{ font-family:huawenxingkai; src:url(images/STXINGKA.TTF);}
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, small, strong, dl, dt, dd, ol, ul, li {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+ul, ol {
+    list-style: none;
+}
+textarea {
+    resize: none;
+}
+
+.clear::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+input{ margin:0px; padding:opx; outline:none;}
+body{ margin:0px; background-color:#fafafa;}
+img{ display:block; border:none;}
+a{text-decoration:none; color:#666; cursor:pointer;}
+a:hover{ color:#FFF; text-decoration:underline;}
+*{ font-size:12px;}
+h1,h2,h6,p{ border:none; margin:0px; font-weight:normal; border:none; }
+ul{ list-style:none; border:none; padding:none;}
+.overflowH{ overflow:hidden;}
+.clearbox{ clear:both}
+.fl{ float:left;}
+
+.nav{ background-color:#FFF;border-bottom: 2px solid #999}
+.navbox{ width:1000px; margin-left:auto; margin-right:auto;}
+.logo{ float:left;}
+.navtext{ float:left;}
+.logo{ margin-top:21px; margin-right: 40px;}
+.logo img{height: 30px;}
+.navtext a{  font-family:"微软雅黑"; font-size:14px; color:#333; padding-left:18px; padding-right:18px; line-height:70px; overflow:hidden; }
+.navtext span{ font-family:"微软雅黑"; font-size:14px; color:#333; padding-left:16px; padding-right:16px; line-height:70px; padding-bottom:24px; padding-top:8px;background-image:url(../images/navcurrent.png); background-position:bottom center; background-repeat:no-repeat;}
+.navtextcurrent{font-family:"微软雅黑"; font-size:14px; color:#333; padding-left:16px; padding-right:16px; line-height:70px; padding-bottom:24px; padding-top:8px; background-image:url(../images/navcurrent.png); background-position:bottom center; background-repeat:no-repeat;}
+
+.abouttitle *{ float:left;}
+.maintitle{ font-family:"微软雅黑"; font-size:32px; color:#393737; font-weight:bold; margin-bottom:8px; margin-right:10px;}
+.englishtitle{ font-family:"arial"; font-size:18px; color:#393737; margin-top:4px;}
+.englishtitlesmall{ font-family:"arial"; font-size:14px; color:#393737;}
+.smalltitle{ font-family:"微软雅黑"; font-size:22px; color:#393737;}
+.aboutcurrent{ float:right; margin-bottom:85px; margin-top:86px; font-family:"宋体"; font-size:14px; color:#393737;}
+.aboutcurrent a:hover{ color:#0FF;}
+
+.back{width:50px;height:50px; border-radius:50%; bottom:40px; right:40px; position:fixed; z-index:10;}
+.back img{ cursor:pointer;}
+#footer {
+    margin-top: 25px;
+    padding: 40px 0;
+    background-color: #515151;
+    color: white;
+}
+.log-con {
+    margin: 24px 0 0 55px;
+    display: inline-block;
+}
+#log:hover {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#copyright {
+    text-align: center;
+}
+.about{ background-color:#fafafa;}
+.aboutbox{ width:1000px; margin-left:auto; margin-right:auto;}
+.abouttitle{ width:260px; height:100px; margin-bottom:50px; margin-top:60px; float:left;}
+
+.businessline{ width:1000px; height:1px; background-color:#e1e1e1;float:left;}
+.color-blue {
+    color: #6699CC;
+}

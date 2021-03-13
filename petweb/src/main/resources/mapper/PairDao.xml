@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petweb.dao.PairDao">
+    <select id="getAllPair" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select p.pid as pairId,
+               ppublisher as uid,
+               ppet as petId,
+               p.pdetail as pairDetail,
+               uname,
+               uphoto,
+               pname as petName,
+               phealth as petHealth,
+               pbreed as petBreed,
+               pphoto as petPhoto,
+               e.pdetail as petDetail
+        from pair p, user u, pet e
+        where u.uid = p.ppublisher
+          and e.uid = p.ppublisher
+          and p.ppet = e.pid
+          and (preceiver is null OR preceiver = '')
+          and pstate = 1
+        <if test="value != null">
+            and (p.pdetail like concat(concat('%',#{value}),'%') OR e.pbreed like concat(concat('%',#{value}),'%') OR e.pname like concat(concat('%',#{value}),'%'))
+        </if>
+          order by p.pid desc
+    </select>
+    <insert id="insertPairRec" parameterType="com.petweb.pojo.Pair" useGeneratedKeys="true" keyProperty="pid">
+        insert ignore into pair (ppublisher, preceiver, ppet, pstate) values ( #{ppublisher}, #{preceiver}, #{ppet}, 1);
+    </insert>
+    <insert id="insertPairPub" parameterType="com.petweb.pojo.Pair" useGeneratedKeys="true" keyProperty="pid">
+        insert ignore into pair (ppublisher, ppet, pstate, pdetail) values ( #{ppublisher}, #{ppet}, 1, #{pdetail});
+    </insert>
+    <select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from pair
+        where ppublisher is not null
+        <choose>
+            <when test="hasPreceiver != null">
+                and preceiver is not null
+            </when>
+            <otherwise>
+                and (preceiver is null or preceiver = '')
+            </otherwise>
+        </choose>
+        <if test="pstate != null">
+           and pstate = #{pstate}
+        </if>
+    </select>
+    <select id="getAllMyPair" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select a.pid as pairId, e.pid as petId, a.pdetail as pairDetail,
+        e.phealth as health, e.pphoto as photo, e.pbreed as breed, e.pname as petName
+        from pair a, pet e
+        where a.ppet = e.pid
+        and a.ppublisher = #{uid}
+        and (a.preceiver = '' or a.preceiver is null)
+        order by a.pid desc
+    </select>
+    <select id="getAllMyRecPair" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select a.pid as pairId, e.pid as petId, a.pdetail as pairDetail, u.uid as pubId, u.uname as pubUname,
+        e.phealth as health, e.pphoto as photo, e.pbreed as breed, e.pname as petName, u.uphone as pubPhone
+        from pair a, pet e, pair c, user u
+        where a.ppet = e.pid
+        and c.preceiver = #{uid}
+        and a.ppublisher = c.ppublisher
+        and a.ppet = c.ppet
+        and a.ppublisher = u.uid
+        and (a.preceiver = '' or a.preceiver is null)
+        order by c.pid desc
+    </select>
+    <select id="getAllOtherPair" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select a.pid as pairId, e.pid as petId, a.pdetail as pairDetail, u.uid as pubId, u.uname as pubUname,
+        e.phealth as health, e.pphoto as photo, e.pbreed as breed, e.pname as petName, u.uphone as phone
+        from pair a, pet e, user u
+        where a.ppet = e.pid
+        and a.ppublisher = #{uid}
+        and (a.preceiver <![CDATA[ <> ]]> '' and a.preceiver is not null)
+        and a.preceiver = u.uid
+        order by a.pid desc
+    </select>
+    <select id="getPPetByPid" resultType="java.lang.Integer">
+        select ppet from pair where pid=#{pid}
+    </select>
+    <delete id="deletePair" parameterType="java.lang.Integer">
+        delete from pair
+        where pid = #{pid}
+        or (preceiver is not null and preceiver <![CDATA[ <> ]]> '' and ppet = #{ppet})
+    </delete>
+    <delete id="deletePairByPid" parameterType="java.lang.Integer">
+        delete from pair
+        where pid = #{pid}
+    </delete>
+</mapper>

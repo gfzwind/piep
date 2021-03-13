@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petweb.dao.MissionDao">
+    <select id="getAllPubMission" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select
+                u.uid as uid,
+                u.uname as uname,
+                m.mtitle as title,
+                m.mdeadline as deadline,
+                m.mdetail as detail,
+                m.mid as mid
+        from mission m, user u
+        where  (m.mreceiver is null or m.mreceiver = '')
+        and (m.mstate = 1 or m.mstate = 0)
+        and m.mpublisher = u.uid
+        <if test="value != null">
+            and (m.mtitle like concat(concat('%',#{value}),'%') OR m.mdetail like concat(concat('%',#{value}),'%'))
+        </if>
+        order by m.mid desc
+    </select>
+    <select id="getCountAble" resultType="java.lang.Integer">
+        select count(*) from mission
+        where (mstate = 1 or mstate = 0)
+        and (mreceiver is null or mreceiver = '')
+    </select>
+    <insert id="insertMission" parameterType="com.petweb.pojo.Mission" useGeneratedKeys="true" keyProperty="mid">
+        insert ignore into mission (mpublisher, mtitle, mdetail, mdeadline, mstate) values (#{mpublisher}, #{mtitle}, #{mdetail}, #{mdeadline}, 0);
+    </insert>
+    <insert id="insertMissionRec" parameterType="com.petweb.pojo.Mission" useGeneratedKeys="true" keyProperty="mid">
+        insert ignore into mission (mpublisher, mreceiver, mstate)
+        values (#{mpublisher}, #{mreceiver}, #{mstate})
+    </insert>
+    <select id="getPub" resultType="java.lang.String">
+        select mpublisher
+        from mission
+        where mid = #{mid} and (mstate =1 or mstate = 0)
+    </select>
+    <update id="updateMissionStateByMid">
+      update mission set
+        mstate = #{mstate}
+      where mid = #{mid}
+      and (mreceiver is null or mreceiver = '')
+    </update>
+    <delete id="removeMissionRec" parameterType="com.petweb.pojo.Mission">
+        delete from mission
+        where mstate = #{mstate}
+        and mreceiver = #{mreceiver}
+        and mpublisher = #{mpublisher}
+    </delete>
+    <select id="getAllMyAcceptMission" resultType="com.petweb.pojo.Mission">
+        select *
+        from mission
+        where mreceiver = #{mreceiver}
+        order by mid desc
+    </select>
+    <select id="getAllMyPubMission" resultType="com.petweb.pojo.Mission">
+        select *
+        from mission
+        where mpublisher = #{mpublisher}
+        and (mreceiver is null or mreceiver = '')
+        order by mid desc
+    </select>
+    <select id="getAllMyAcceptMap" resultType="java.util.HashMap">
+        select m1.mid as mida, m1.mpublisher as pubId, m1.mtitle as mtitlea,
+        m1.mdetail as mdetail, m1.mdeadline as mdeadlinea, u.uname as pubName,
+        m2.mid as midb, m2.mreceiver as mreceiverb
+        from mission m1, user u, mission m2
+        where m2.mreceiver = #{mreceiver}
+        and m2.mpublisher = u.uid
+        and m2.mstate = m1.mid
+        order by m2.mid desc
+    </select>
+    <select id="getAllMyPubMap" resultType="java.util.HashMap">
+        select u.uid as recId, u.uname as recName, u.uphoto as recPhoto,
+        m1.mid as mida,  m2.mid as midb, m1.mtitle as mtitlea, u.uphone as uphone
+        from mission m1, mission m2, user u
+        where m1.mpublisher = #{mpublisher}
+        and (m1.mreceiver = '' or m1.mreceiver is null)
+        and (m2.mreceiver is not null or m2.mreceiver <![CDATA[ <> ]]> '')
+        and m1.mid = m2.mstate
+        and u.uid = m2.mreceiver
+        order by m1.mid desc
+    </select>
+    <delete id="deleteMission" parameterType="java.lang.Integer">
+        delete from mission
+        where mid = #{mid}
+        or (mreceiver is not null and mreceiver <![CDATA[ <> ]]> '' and mstate = #{mid})
+    </delete>
+</mapper>

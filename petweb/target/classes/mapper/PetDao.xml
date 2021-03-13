@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petweb.dao.PetDao">
+    <select id="getPetsByUid" resultType="com.petweb.pojo.Pet">
+        select * from pet where uid = #{uid} order by pid desc
+    </select>
+    <select id="getPetsNoPubByUid" resultType="com.petweb.pojo.Pet">
+        select * from pet where uid = #{uid} and pid not in (
+            select dpet from deal where dpublisher = #{uid}
+        )
+        order by pid desc
+    </select>
+    <delete id="deletePet" parameterType="java.lang.Integer">
+        delete from pet
+        where pid = #{pid}
+    </delete>
+    <insert id="insertPet" parameterType="com.petweb.pojo.Pair" useGeneratedKeys="true" keyProperty="pid">
+        insert ignore into pet (uid, pname, pbirthday, phealth, pbreed, pdetail, pphoto)
+        values ( #{uid}, #{pname}, #{pbirthday}, #{phealth}, #{pbreed}, #{pdetail}, #{pphoto});
+    </insert>
+</mapper>

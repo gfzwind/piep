@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.petweb.dao.EssayDao">
+    <select id="getAllPubEssay" resultType="com.petweb.pojo.Essay">
+        select * from essay where eeid is null order by eid desc
+    </select>
+    <insert id="insertEssayPub" parameterType="com.petweb.pojo.Essay" useGeneratedKeys="true" keyProperty="eid">
+        insert ignore into essay (uid, etitle, edetail, eimg) values ( #{uid}, #{etitle}, #{edetail}, #{eimg});
+    </insert>
+    <insert id="insertEssayRec" parameterType="com.petweb.pojo.Essay" useGeneratedKeys="true" keyProperty="eid">
+        insert ignore into essay (uid, eeid, edetail) values ( #{uid}, #{eeid}, #{edetail});
+    </insert>
+    <select id="getCountEEidNull" resultType="java.lang.Integer">
+        select count(*) from essay where eeid is null
+    </select>
+    <select id="getCountEEidNotNull" resultType="java.lang.Integer">
+        select count(*) from essay where eeid is not null
+    </select>
+    <select id="getEssayByEid" resultType="java.util.HashMap">
+        select eid, e.uid uid, etitle, edetail, eimg, elike, uname, uphoto
+        from essay e, user u
+        where eid = #{eid} and e.uid = u.uid
+        order by eid desc
+    </select>
+    <select id="getAllRecEssayByEid" resultType="java.util.HashMap">
+        select eid, e.uid uid, eeid, edetail, elike, uname, uphoto
+        from essay e, user u
+        where eeid = #{eid} and e.uid = u.uid
+        order by eid desc
+    </select>
+    <select id="getEssayMyPub" resultType="com.petweb.pojo.Essay" parameterType="java.lang.String">
+        select * from essay
+        where eeid is null
+        and uid=#{uid}
+        order by eid desc
+    </select>
+    <select id="getEssayMyRec" resultType="java.util.HashMap" parameterType="java.lang.String">
+        select e1.eid as eida, e1.uid as uida, e1.etitle as etitlea,
+        e1.eimg as eimga, e2.edetail as edetailb, e2.eid as eidb,
+        e2.elike as elikeb, u.uname as unamea
+        from essay e1, essay e2, user u
+        where e1.eeid is null
+        and e2.eeid is not null
+        and e2.uid=#{uid}
+        and e2.eeid = e1.eid
+        and u.uid = e1.uid
+        order by e2.eid desc
+    </select>
+    <delete id="deleteEssay" parameterType="java.lang.Integer">
+        delete from essay
+        where eid = #{eid} or eeid = #{eid}
+    </delete>
+</mapper>

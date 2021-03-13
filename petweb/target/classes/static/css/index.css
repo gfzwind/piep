@@ -1,0 +1,205 @@
+.news {
+    min-height: 600px;
+}
+
+.newsbox {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url(../images/newsline_03.png);
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.newsimgbox {
+    width: 225px;
+    height: 225px;
+    padding-top: 12px;
+    margin-bottom: 35px;
+    margin-top: 35px;
+    margin-left: 20px;
+    float: left;
+}
+
+.news-eimg {
+    width: 200px;
+    height: 200px;
+}
+
+.news-edetail {
+    margin-top: 20px;
+    font-size: 14px;
+}
+.news-etitle {
+    font-weight: 600;
+    font-size: 20px !important;
+}
+
+.newstextbox {
+    width: 705px;
+    height: 148px;
+    margin-top: 40px;
+    float: left;
+    margin-left: 30px;
+    margin-right: 20px;
+}
+
+.newstextbox h1 {
+    font-family: "微软雅黑";
+    font-size: 20px;
+    color: #343434;
+    margin-bottom: 6px;
+    cursor: pointer;
+}
+
+.newstextbox h6 {
+    font-family: "微软雅黑";
+    font-size: 12px;
+    color: #a8a8a8;
+    margin-bottom: 16px;
+}
+
+.newstextbox p {
+    font-family: "宋体";
+    font-size: 12px;
+    color: #807f7f;
+    text-indent: 2em;
+    line-height: 22px;
+}
+
+.newstextbox .color {
+    color: #00aae8;
+}
+
+.paper {
+    background-color: #fafafa;
+    margin-top: -1px;
+}
+
+.paperbox {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 30px;
+}
+
+.paperline {
+    width: 1000px;
+    height: 1px;
+    background-color: #e1e1e1;
+}
+
+.papermain {
+    width: 398px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.papermain a {
+    display: block;
+    float: left;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+.papertop {
+    width: 70px;
+    height: 30px;
+    background-color: #2b2b2b;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.papercenter {
+    width: 35px;
+    height: 30px;
+    background-color: #2b2b2b;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.papercenter1 {
+    width: 35px;
+    height: 30px;
+    background-color: #00aae8;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.papermain .other {
+    background-color: #00aae8;
+}
+
+#main_page {
+    margin-top: 20px;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main_page::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.pageable-item {
+    position: relative;
+    float: left;
+    margin-left: -1px;
+    min-width: 50px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #337ab7;
+    background-color: #fff;
+    border: 1px solid #DDDDDD;
+}
+
+.pageable-item:hover {
+    color: black;
+    background-color: #eee;
+    text-decoration: none;
+}
+
+.pageable-first {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.pageable-end {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.pageable-active {
+    color: black;
+    background-color: #eee;
+}
+
+.pageable-disable:hover {
+    cursor: no-drop;
+    color: #337ab7;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.paper {
+    height: 80px;
+}
+
+.essay-upload {
+    width: 370px;
+    display: block;
+    margin: 15px auto;
+}
+
+#upload-detail {
+    resize: none;
+}

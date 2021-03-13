@@ -1,0 +1,156 @@
+
+.header {
+    background: url(../images/mission_top_back.png) no-repeat;
+    background-size: cover;
+    box-shadow: 0 8px 16px 0 rgba(28, 31, 33, .5);
+}
+
+.header_box {
+    margin: 0 auto;
+    width: 1000px;
+    height: 130px;
+}
+
+.header_left {
+    float: left;
+    line-height: 130px;
+    font-size: 30px;
+    font-weight: 550;
+    color: white;
+}
+
+.header_right {
+    float: left;
+    padding: 40px 0;
+    margin-top: 8px;
+    margin-left: 50px;
+}
+
+.select_con {
+    float: left;
+    margin-right: 40px;
+}
+
+.price_con {
+    float: left;
+    width: 500px;
+}
+
+.price_info {
+    float: left;
+    width: 120px;
+    color: white;
+    line-height: 34px;
+    height: 34px;
+}
+
+.price_input {
+    float: left;
+    width: 130px;
+}
+
+#price_start {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#price_end {
+    border-radius: 0;
+}
+
+
+.content {
+    margin: 40px auto 0 auto;
+    width: 1000px;
+    min-height: 600px;
+}
+
+.content_line {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 2px;
+    background-color: #D9DDE1;
+}
+.content_item {
+    float: left;
+    margin: 10px 10px;
+    width: 475px;
+    border: 1px solid rgb(220, 222, 224);
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.conitem_left {
+    float: left;
+    height: 150px;
+    border-right: 1px solid #D9DDE1;
+}
+.conitem_img {
+    width: 150px;
+    height: 150px;
+}
+
+.conitem_right {
+    float: left;
+    padding: 10px;
+    width: 322px;
+    height: 150px;
+    -webkit-transition: box-shadow .3s;
+    transition: box-shadow .3s;
+    border-radius: 6px;
+}
+
+.conitem_right:hover {
+    box-shadow: 0 0 6px 2px rgb(198, 202, 206);
+}
+
+.conitem_publisher,
+.conitem_name,
+.conitem_price,
+.conitem_phone {
+    font-size: 14px;
+    color: #555;
+    padding: 2px 4px;
+}
+
+.conitem_btn_con {
+    text-align: center;
+    padding-top: 7px;
+}
+
+.conitem_btn {
+    display: inline-block;
+    width: 60px;
+    height: 22px;
+    font-size: 12px;
+    padding: 0;
+    line-height: 12px;
+}
+
+#add-pair {
+    width: 1000px;
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%);
+}
+#add-pair-pic {
+    position: absolute;
+    right: 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    cursor: pointer;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+#add-pair-pic:hover {
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg); /* Internet Explorer */
+    -moz-transform:rotate(90deg); /* Firefox */
+    -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+    -o-transform:rotate(90deg); /* Opera */
+}
